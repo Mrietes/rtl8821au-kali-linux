@@ -59,6 +59,8 @@
 #include <linux/list.h>
 #include <linux/vmalloc.h>
 
+#include <linux/timer.h>
+
 #if (LINUX_VERSION_CODE <= KERNEL_VERSION(2, 5, 41))
 	#include <linux/tqueue.h>
 #endif
@@ -355,7 +357,9 @@ static inline void timer_hdl(struct timer_list *in_timer)
 static inline void timer_hdl(unsigned long cntx)
 #endif
 {
-#if (LINUX_VERSION_CODE >= KERNEL_VERSION(4, 14, 0))
+#if (LINUX_VERSION_CODE >= KERNEL_VERSION(7, 1, 5))
+	_timer *ptimer = timer_container_of(ptimer, in_timer, timer);
+#elif (LINUX_VERSION_CODE >= KERNEL_VERSION(4, 14, 0))
 	_timer *ptimer = from_timer(ptimer, in_timer, timer);
 #else
 	_timer *ptimer = (_timer *)cntx;
@@ -385,7 +389,11 @@ __inline static void _set_timer(_timer *ptimer, u32 delay_time)
 
 __inline static void _cancel_timer(_timer *ptimer, u8 *bcancelled)
 {
+#if (LINUX_VERSION_CODE >= KERNEL_VERSION(7, 1, 5))
+	*bcancelled = timer_delete_sync(&ptimer->timer) == 1 ? 1 : 0;
+#else
 	*bcancelled = del_timer_sync(&ptimer->timer) == 1 ? 1 : 0;
+#endif
 }
 
 static inline void _init_workitem(_workitem *pwork, void *pfunc, void *cntx)
