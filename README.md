@@ -30,31 +30,23 @@ $ sudo make dkms_remove
 ```
 
 ### LED control
-
-#### statically by module parameter in /etc/modprobe.d/8812au.conf or wherever, for example:
-
-```sh
+statically by module parameter in /etc/modprobe.d/8812au.conf or wherever, for example:
+```
 options 88XXau rtw_led_ctrl=0
 ```
-value can be 0 or 1
-
-#### or dynamically by writing to /proc/net/rtl8812au/$(your interface name)/led_ctrl, for example:
-
-```sh
+value can be 0 or 1.
+Or dynamically by writing to /proc/net/rtl8812au/$(your interface name)/led_ctrl, for example:
+```
 $ echo "0" > /proc/net/rtl8812au/$(your interface name)/led_ctrl
 ```
-value can be 0 or 1
-
-#### check current value:
-
-```sh
+value can be 0 or 1.
+Check current value:
+```
 $ cat /proc/net/rtl8812au/$(your interface name)/led_ctrl
 ```
 
 ### USB Mode Switch
-
-0: doesn't switch, 1: switch from usb2.0 to usb 3.0 2: switch from usb3.0 to usb 2.0
-```sh
+```
 $ rmmod 88XXau
 $ modprobe 88XXau rtw_switch_usb_mode=int (0: no switch 1: switch from usb2 to usb3 2: switch from usb3 to usb2)
 ```
@@ -62,16 +54,15 @@ $ modprobe 88XXau rtw_switch_usb_mode=int (0: no switch 1: switch from usb2 to u
 ### NetworkManager
 
 Newer versions of NetworkManager switches to random MAC address. Some users would prefer to use a fixed address.
-Simply add these lines below
+Simply add these lines below.
 ```
 [device]
 wifi.scan-rand-mac-address=no
 ```
-at the end of file /etc/NetworkManager/NetworkManager.conf and restart NetworkManager with the command:
+At the end of file /etc/NetworkManager/NetworkManager.conf and restart NetworkManager with the command:
 ```
 $ sudo service NetworkManager restart
 ```
-
 ### Credits / Contributors
 
 ```
