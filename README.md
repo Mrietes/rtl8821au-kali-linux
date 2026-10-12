@@ -1,40 +1,32 @@
-## RTL8812AU/14AU/21AU Wireless drivers
-Only for use with Linux & Android
-This repository is a fork of [aircrack-ng/rtl8812au](https://github.com/aircrack-ng/rtl8812au). It supports kernel version 7.1.5 kali linux
-### DKMS
-This driver can be installed using [DKMS]. This is a system which will automatically recompile and install a kernel module when a new kernel gets installed or updated. To make use of DKMS, install the `dkms` package, which on Debian (based) systems is done like this:
-```
-$ sudo apt-get install dkms
-```
+# RTL8812AU/14AU/21AU Wireless drivers
+Only for use with Linux & Android.
+This repository is a fork of [aircrack-ng/rtl8812au](https://github.com/aircrack-ng/rtl8812au). It supports kernel version 7.1.5 kali linux.
+
+##Installation
 
 ### Download
 ```
+$ sudo apt-get update
+$ sudo apt-get install bc mokutil build-essential libelf-dev linux-headers-$(uname -r)
 $ git clone https://github.com/Mrietes/rtl88XXau-kali-linux
-cd rtl*
+cd rtl88XXau-kali-linux
 ```
 
-### Installation of Driver
-In order to install the driver open a terminal in the directory with the source code and execute the following command:
+### Method 1. DKMS
 ```
+$ sudo apt-get install dkms
 $ sudo make dkms_install
+```
+### Method 2. Make
+For building & installing the driver with 'make' use
+```
+$ sudo make -j$(nproc) && sudo make install
 ```
 
 ### Removal of Driver
 In order to remove the driver from your system open a terminal in the directory with the source code and execute the following command:
 ```
 $ sudo make dkms_remove
-```
-
-### Make
-For building & installing the driver with 'make' use
-```
-$ make && make install
-```
-
-Package / Build dependencies (Kali)
-```
-$ sudo apt-get update
-$ sudo apt-get install bc mokutil build-essential libelf-dev linux-headers-$(uname -r)
 ```
 
 ### LED control
@@ -89,7 +81,7 @@ aircrack-ng   - https://www.aircrack-ng.org
 
 astsam        - https://github.com/astsam
 evilphish     - https://github.com/evilphish
-fariouche     - https://github.com/fariouche
+fariouche     - https://github.com/farioucheMethod 1.
 CGarces       - https://github.com/CGarces
 ZerBea        - https://github.com/ZerBea
 lwfinger      - https://github.com/lwfinger
