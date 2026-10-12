@@ -30,17 +30,15 @@ $ sudo make dkms_remove
 ```
 
 ### LED control
-statically by module parameter in /etc/modprobe.d/8812au.conf or wherever, for example:
+Statically by module parameter in /etc/modprobe.d/8812au.conf or wherever, for example:
 ```
 options 88XXau rtw_led_ctrl=0
 ```
-value can be 0 or 1.
-Or dynamically by writing to /proc/net/rtl8812au/$(your interface name)/led_ctrl, for example:
+value can be 0 or 1 or dynamically by writing to /proc/net/rtl8812au/$(your interface name)/led_ctrl, for example:
 ```
 $ echo "0" > /proc/net/rtl8812au/$(your interface name)/led_ctrl
 ```
-value can be 0 or 1.
-Check current value:
+value can be 0 or 1, check current value:
 ```
 $ cat /proc/net/rtl8812au/$(your interface name)/led_ctrl
 ```
