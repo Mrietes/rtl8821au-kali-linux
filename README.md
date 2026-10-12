@@ -1,28 +1,6 @@
 ## RTL8812AU/14AU/21AU Wireless drivers
 Only for use with Linux & Android
-
-
-# THESE DRIVERS IS DEPRECATED.
-# Use the mac80211 drivers over at [https://github.com/lwfinger/rtw88](https://github.com/lwfinger/rtw88)
-
-
-
-[![Monitor mode](https://img.shields.io/badge/monitor%20mode-working-brightgreen.svg)](#)
-[![Frame Injection](https://img.shields.io/badge/frame%20injection-working-brightgreen.svg)](#)
-[![GitHub version](https://raster.shields.io/badge/version-v5.6.4.2-lightgrey.svg)](#)
-[![GitHub issues](https://img.shields.io/github/issues/aircrack-ng/rtl8812au.svg)](https://github.com/aircrack-ng/rtl8812au/issues)
-[![GitHub forks](https://img.shields.io/github/forks/aircrack-ng/rtl8812au.svg)](https://github.com/aircrack-ng/rtl8812au/network)
-[![GitHub stars](https://img.shields.io/github/stars/aircrack-ng/rtl8812au.svg)](https://github.com/aircrack-ng/rtl8812au/stargazers)
-[![Build Status](https://travis-ci.org/aircrack-ng/rtl8812au.svg?branch=v5.6.4.2)](https://travis-ci.org/aircrack-ng/rtl8812au)
-[![GitHub license](https://img.shields.io/github/license/aircrack-ng/rtl8812au.svg)](https://github.com/aircrack-ng/rtl8812au/blob/master/LICENSE)
-<br>
-[![Kali](https://img.shields.io/badge/Kali-supported-blue.svg)](https://www.kali.org)
-[![Arch](https://img.shields.io/badge/Arch-supported-blue.svg)](https://www.archlinux.org)
-[![Armbian](https://img.shields.io/badge/Armbian-supported-blue.svg)](https://www.armbian.com)
-[![ArchLinux](https://img.shields.io/badge/ArchLinux-supported-blue.svg)](https://img.shields.io/badge/ArchLinux-supported-blue.svg)
-[![aircrack-ng](https://img.shields.io/badge/aircrack--ng-supported-blue.svg)](https://github.com/aircrack-ng/aircrack-ng)
-[![wifite2](https://img.shields.io/badge/wifite2-supported-blue.svg)](https://github.com/kimocoder/wifite2)
-
+This repository is a fork of [aircrack-ng/rtl8812au](https://github.com/aircrack-ng/rtl8812au). It supports kernel version 7.1.5 kali linux
 ### DKMS
 This driver can be installed using [DKMS]. This is a system which will automatically recompile and install a kernel module when a new kernel gets installed or updated. To make use of DKMS, install the `dkms` package, which on Debian (based) systems is done like this:
 ```
@@ -31,7 +9,7 @@ $ sudo apt-get install dkms
 
 ### Download
 ```
-$ git clone -b v5.6.4.2 https://github.com/aircrack-ng/rtl8812au.git
+$ git clone https://github.com/Mrietes/rtl88XXau-kali-linux
 cd rtl*
 ```
 
@@ -58,45 +36,7 @@ Package / Build dependencies (Kali)
 $ sudo apt-get update
 $ sudo apt-get install bc mokutil build-essential libelf-dev linux-headers-`uname -r`
 ```
-#### For Proxmox Virtual Environment (PVE)
-Package / Build dependencies
 ```
-$ sudo apt-get update
-$ sudo apt-get install bc mokutil build-essential libelf-dev pve-headers-`uname -r`
-```
-#### For Raspberry (RPI)
-
-```
-$ sudo apt-get install raspberrypi-kernel-headers
-```
-
-Then change the platform in Makefile to 32-bit `ARM` architecture (RPi 1/2/3/ & 0/Zero):
-```
-$ sed -i 's/CONFIG_PLATFORM_I386_PC = y/CONFIG_PLATFORM_I386_PC = n/g' Makefile
-$ sed -i 's/CONFIG_PLATFORM_ARM_RPI = n/CONFIG_PLATFORM_ARM_RPI = y/g' Makefile
-```
-
-Or, for `ARM64` (RPI 3B+, 4B and Zero2) you will need to run:
-```
-$ sed -i 's/CONFIG_PLATFORM_I386_PC = y/CONFIG_PLATFORM_I386_PC = n/g' Makefile
-$ sed -i 's/CONFIG_PLATFORM_ARM64_RPI = n/CONFIG_PLATFORM_ARM64_RPI = y/g' Makefile
-```
-
-In addition, if you receive an error message about `unrecognized command line option ‘-mgeneral-regs-only’` (i.e., Raspbian Buster), you will need to run the following commands for `ARM` architecture, then retry building and installing:
-```
-$ export ARCH=arm
-$ sed -i 's/^MAKE="/MAKE="ARCH=arm\ /' dkms.conf
-```
-
-Or, for `ARM64` run the following before re-building:
-
-```
-$ export ARCH=arm64
-$ sed -i 's/^MAKE="/MAKE="ARCH=arm64\ /' dkms.conf
-```
-
-Building the driver may exceed RAM on some RPi's resulting in a `gcc: fatal error: Killed signal terminated program cc1` error.  Swap space can be increased in `/etc/dphys-swapfile` e.g. to `2000` megabytes, followed by `/etc/init.d/dphys-swapfile restart`. Building on swap is very slow, however.
-
 For setting monitor mode
   1. Fix problematic interference in monitor mode.
   ```
