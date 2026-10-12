@@ -34,31 +34,7 @@ $ make && make install
 Package / Build dependencies (Kali)
 ```
 $ sudo apt-get update
-$ sudo apt-get install bc mokutil build-essential libelf-dev linux-headers-`uname -r`
-```
-```
-For setting monitor mode
-  1. Fix problematic interference in monitor mode.
-  ```
-  $ airmon-ng check kill
-  ```
-  You may also uncheck the box "Automatically connect to this network when it is avaiable" in nm-connection-editor. This only works if you have a saved wifi connection.
-
-  2. Set interface down
-  ```
-  $ sudo ip link set wlan0 down
-  ```
-  3. Set monitor mode
-  ```
-  $ sudo iw dev wlan0 set type monitor
-  ```
-  4. Set interface up
-  ```
-  $ sudo ip link set wlan0 up
-  ```
-For setting TX power
-```
-$ sudo iw wlan0 set txpower fixed 3000
+$ sudo apt-get install bc mokutil build-essential libelf-dev linux-headers-$(uname -r)
 ```
 
 ### LED control
